@@ -22,10 +22,10 @@ int main() {
     string job;
     float salary;
     float seniority;
-    
+
     cin >> courseName;
     Course course(courseName);
-    
+
     for (int i = 0; i < 10; i++) {
         cin >> name >> surname >> weight >> height >> age >> genderInput >> index >> year;
         if (genderInput == "K") {
@@ -37,18 +37,17 @@ int main() {
             cin >> grade;
             grades[j] = grade;
         }
-        Student student(name, surname, weight, height, age, gender, index, year, grades[5]);
-        course.addStudent(student, year);
+        Student student(name, surname, weight, height, age, gender, index, year, grades);
+        course.addStudent(&student, year);
     }
 
     cin >> year;
-    course.bestStudents(year);
+    course.displayBestStudents(year);
 
     cin >> name >> surname >> weight >> height >> age >> genderInput >> companyName >> job >> salary >> seniority;
     if (genderInput == "K") {
         gender = K;
-    }
-    else {
+    } else {
         gender = M;
     }
     Staff staff1(name, surname, weight, height, age, gender, companyName, job, salary, seniority);
@@ -56,13 +55,12 @@ int main() {
     cin >> name >> surname >> weight >> height >> age >> genderInput >> companyName >> job >> salary >> seniority;
     if (genderInput == "K") {
         gender = K;
-    }
-    else {
+    } else {
         gender = M;
     }
     Staff staff2(name, surname, weight, height, age, gender, companyName, job, salary, seniority);
-    
-    cout << staff1.timeLeftToRetire() << " " << staff2.timeLeftToRetire();
-    
+
+    cout << staff1.calculateYearsToRetirement() << " " << staff2.calculateYearsToRetirement();
+
     return 0;
 }
