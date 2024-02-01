@@ -4,11 +4,19 @@ using namespace std;
 
 class Circle {
 private:
-    string name_;
-    float radius_;
+    string name;
+    float radius;
+
 public:
-    Circle();
-    void countCircumference();
-    void displayCircleInfo();
-    
+    float calculateCircumference() const {
+        return 2 * 3.14 * radius;
+    }
+
+    void displayAttributes() const {
+        cout << name << " " << calculateCircumference() << " ";
+    }
+
+    void inputData() {
+        cin >> name >> radius;
+    }
 };
