@@ -1,6 +1,28 @@
 #include <iostream>
 using namespace std;
 
+
+ void sortArray(int arr[], int n) {
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+}   
+
+bool areEqual(int arr1[], int arr2[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (arr1[i] != arr2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int romanToArabic(char c) {
     switch (c) {
         case 'I': return 1;
@@ -37,104 +59,48 @@ int main () {
             break;    
             }
         case 2:{
-            const int arraySize = 5;
-            int arr1[arraySize];
-            int arr2[arraySize];
-            char input[10];
+            int arr1[5], arr2[5];
 
             for (int i = 0; i < 5; i++) {
-                bool valid_input = false;
-
-                while (!valid_input) {
-                    cin >> input;
-
-                    bool is_int = true;
-                    int j = 0;
-                    if (input[0] == '-' || input[0] == '+') {
-                        j++;
-                    }
-                    while (input[j] != '\0') {
-                        if (input[j] < '0' || input[j] > '9') {
-                            is_int = false;
-                            break;
-                        }
-                        j++;
-                    }
-
-                    if (is_int) {
-                        arr1[i] = atoi(input);
-                        valid_input = true;
-                    } 
-                    else {
-                        cout << "Invalid input." << endl;
-                    }
-                }
+                cin >> arr1[i];
             }
 
             for (int i = 0; i < 5; i++) {
-                bool valid_input = false;
-
-                while (!valid_input) {
-                    cin >> input;
-
-                    bool is_int = true;
-                    int j = 0;
-                    if (input[0] == '-' || input[0] == '+') {
-                        j++;
-                    }
-                    while (input[j] != '\0') {
-                        if (input[j] < '0' || input[j] > '9') {
-                            is_int = false;
-                            break;
-                        }
-                        j++;
-                    }
-
-                    if (is_int) {
-                        arr2[i] = atoi(input);
-                        valid_input = true;
-                    } 
-                    else {
-                        cout << "Invalid input." << endl;
-                    }
-                }
+                cin >> arr2[i];
             }
 
-            for (int i = 0; i < 4; i++) {
-                for (int j = i + 1; j < 5; j++) {
-                    if (arr1[i] > arr1[j]) {
-                        int temp = arr1[i];
-                        arr1[i] = arr1[j];
-                        arr1[j] = temp;
-                    }
+            sortArray(arr1, 5);
+            sortArray(arr2, 5);
 
-                    if (arr2[i] > arr2[j]) {
-                        int temp = arr2[i];
-                        arr2[i] = arr2[j];
-                        arr2[j] = temp;
-                    }
-                }
+            if (areEqual(arr1, arr2, 5)) {
+                cout << "Equal.\n";
+            } else {
+                cout << "Different.\n";
             }
-
-            bool equal = true;
-            for (int i = 0; i < 5; i++) {
-                if (arr1[i] != arr2[i]) {
-                    equal = false;
-                    break;
-                }
-            }
-
-            if (equal) {
-                cout << "Equal." << endl;
-            } 
-            else {
-                cout << "Different." << endl;
-            }
+            
             break;
             }
         case 3:{
             char romanNumber[50];
             cin >> romanNumber;
+            char previousLetter = ' ';
+            char currentLetter = ' ';
+            char nextLetter = ' ';
+            bool isWrong = false;
+
+            for (int i = 0; romanNumber[i] != '\0'; i++) {
+                if (i > 0) {
+                    previousLetter = romanNumber[i-1];
+                }
+                currentLetter = romanNumber[i];
+                nextLetter = romanNumber[i+1];
+
+                if (previousLetter == currentLetter && (nextLetter == 'V' || nextLetter == 'X' || nextLetter == 'L' || nextLetter == 'C' || nextLetter == 'D' || nextLetter == 'M')) {
+                    cout << "Wrong input data.";
+                    isWrong = true;
+                    break;
+                }
+            }
 
             int arabicNumber = 0;
             int previousValue = 0;
@@ -142,62 +108,63 @@ int main () {
             int maxLength = 0;
             int count = 0;
 
-            for (int i = 0; romanNumber[i] != '\0'; i++) {
-                currentValue = romanToArabic(romanNumber[i]);
+            if (!isWrong) { 
+                for (int i = 0; romanNumber[i] != '\0'; i++) {
+                    currentValue = romanToArabic(romanNumber[i]);
 
-                if (currentValue == -1) {
-                    cout << "Wrong input data." << endl;
-                    return 1;
-                }
-
-                if (previousValue < currentValue) {
-                    if (previousValue == 0) {
-                        previousValue = currentValue;
-                        count++;
-                    }
-                    else if (currentValue / previousValue == 5 || currentValue / previousValue == 10) {
-                        arabicNumber += (currentValue - previousValue);
-                        previousValue = 0;
-                        count = 0;
-                    }
-                    else {
+                    if (currentValue == -1) {
                         cout << "Wrong input data." << endl;
-                        return 1;
+                        break;
                     }
-                }
-                else {
-                    if (previousValue == currentValue) {
-                        count++;
-                        if (count > maxLength) {
-                            maxLength = count;
+
+                    if (previousValue < currentValue) {
+                        if (previousValue == 0) {
+                            previousValue = currentValue;
+                            count++;
+                        }
+                        else if (currentValue / previousValue == 5 || currentValue / previousValue == 10) {
+                            arabicNumber += (currentValue - previousValue);
+                            previousValue = 0;
+                            count = 0;
+                        }
+                        else {
+                            cout << "Wrong input data." << endl;
+                            break;
                         }
                     }
                     else {
-                        arabicNumber += (previousValue * count);
-                        previousValue = currentValue;
-                        count = 1;
+                        if (previousValue == currentValue) {
+                            count++;
+                            if (count > maxLength) {
+                                maxLength = count;
+                            }
+                        }
+                        else {
+                            arabicNumber += (previousValue * count);
+                            previousValue = currentValue;
+                            count = 1;
+                        }
                     }
                 }
+
+                if (count > maxLength) {
+                    maxLength = count;
+                }
+
+                arabicNumber += (previousValue * count);
+
+                if (arabicNumber < 1 || arabicNumber > 3999) {
+                    cout << "Wrong input data." << endl;
+                    break;
+                }
+
+                if (maxLength > 3) {
+                    cout << "Wrong input data." << endl;
+                    break;
+                }
+
+                cout << "Converted " << romanNumber << " to " << arabicNumber << "." << endl;
             }
-
-            if (count > maxLength) {
-                maxLength = count;
-            }
-
-            arabicNumber += (previousValue * count);
-
-            if (arabicNumber < 1 || arabicNumber > 3999) {
-                cout << "Wrong input data." << endl;
-                return 1;
-            }
-
-            if (maxLength > 3) {
-                cout << "Wrong input data." << endl;
-                return 1;
-            }
-
-            cout << "Converted " << romanNumber << " to " << arabicNumber << "." << endl;
-
             break;
             }
         default:{
