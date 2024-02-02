@@ -4,7 +4,7 @@ using namespace std;
 int main () {
     int program;
     float result;
-    int firstNumber, secondNumber, thirdNumber, fourthNumber;
+    float firstNumber, secondNumber, thirdNumber, fourthNumber;
     cin >> program;
     switch (program) {
         case 1:
@@ -14,6 +14,10 @@ int main () {
             break;
         case 2:
             cin >> firstNumber >> secondNumber;
+            if (firstNumber < 0 || secondNumber < 0) {
+                cout << "NaN";
+                break;
+            }
             result = (firstNumber*secondNumber)/2;
             cout << result << endl;
             break;
@@ -37,6 +41,9 @@ int main () {
                     break;
                 case 4:
                     result = a / b;
+                    if (b == 0)
+                        cout << "NaN";
+                        break;
                     cout << result;
                     break;
                 case 5:
