@@ -12,11 +12,13 @@ int main()
         const int rozmiar1 = 10;
         int tablica[rozmiar1];
         int licznik = 1;
-        int max = tablica[0];
-        for (int i = 0; i <= 9; i++)
+
+        for (int i = 0; i < rozmiar1; i++)
         {
             cin >> tablica[i];
         }
+
+        int max = tablica[0];
 
         for (int i = 1; i < rozmiar1; i++)
         {
@@ -39,6 +41,11 @@ int main()
         string tekst, wzorzec;
         int licznik = 0;
         cin >> tekst >> wzorzec;
+        if (tekst.length() < wzorzec.length())
+        {
+            cout << "0";
+            break;
+        }
         for (int i = 0; i <= tekst.length() - wzorzec.length(); i++)
         {
             bool porownanie = true;
@@ -103,7 +110,9 @@ int main()
             }
         }
 
-        cout << druga_najmniejsza << endl;
+        if (!druga_najmniejsza == najmniejsza){
+            cout << druga_najmniejsza << endl;
+        }
         break;
     }
     default:
