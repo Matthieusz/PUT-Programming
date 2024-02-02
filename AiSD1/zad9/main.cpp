@@ -40,7 +40,7 @@ int find_max_ones(int arr[], int size) {
     return arr[max_index];
 }
 
-int sequencecheck(int a, int b){
+int sequenceCheck(int a, int b){
     unsigned int mask = 0x80000000;
     int size = 0;
     unsigned int secondmask;
@@ -58,7 +58,7 @@ int sequencecheck(int a, int b){
     maxmask = maxmask << size;
     int secondsize = 32 - size;
       for(int i = 0; i <= 32 - secondsize; i++){
-        if(((maxmask & b))==(secondmask)){
+        if(((maxmask & b)) == (secondmask)){
             counter++;
         }
         secondmask = secondmask >> 1;
@@ -102,7 +102,7 @@ int main() {
         case 3:{
             int a, b;
             cin >> a >> b;
-            cout << sequencecheck(a,b);
+            cout << sequenceCheck(a,b);
         }
     }
 }

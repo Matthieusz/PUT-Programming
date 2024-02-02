@@ -36,8 +36,7 @@ void wyswietlTablice(int tablica[], int rozmiar) {
     }
 }
 
-// Funkcja do sortowania koktajlowego
-void sortowanieKoktajlowe(int tablica[], int rozmiar) {
+void sortowanieKoktajlowe(int tablica[10], int rozmiar) {
     bool zamieniono = true;
     int start = 0;
     int koniec = rozmiar - 1;
@@ -45,7 +44,6 @@ void sortowanieKoktajlowe(int tablica[], int rozmiar) {
     while (zamieniono) {
         zamieniono = false;
 
-        // Przechodzenie w prawo
         for (int i = start; i < koniec; i++) {
             if (tablica[i] < tablica[i + 1]) {
                 swap(tablica[i], tablica[i + 1]);
@@ -59,9 +57,8 @@ void sortowanieKoktajlowe(int tablica[], int rozmiar) {
 
         zamieniono = false;
 
-        // Przechodzenie w lewo
         for (int i = koniec - 1; i >= start; i--) {
-            if (tablica[i] < tablica[i + 1]) {
+            if (tablica[i] < tablica[i + 1]) { 
                 swap(tablica[i], tablica[i + 1]);
                 zamieniono = true;
             }
@@ -94,16 +91,13 @@ int main(){
             const int kolumny = 5;
             int tablica[wiersze][kolumny];
         
-            // Wprowadzanie elementów tablicy przez użytkownika
             for (int i = 0; i < wiersze; i++) {
                 for (int j = 0; j < kolumny; j++) {
                     cin >> tablica[i][j];
                 }
             }
-        
             sortujTablice(tablica, wiersze);
         
-            // Wyświetlanie posortowanej tablicy
             for (int i = 0; i < wiersze; i++) {
                 for (int j = 0; j < kolumny; j++) {
                     cout << tablica[i][j] << " ";
@@ -111,14 +105,13 @@ int main(){
             }
             break;
         }
-        case 3:{
+        case 3:{ // nie dziala :(
             const int rozmiar = 10;
             int tablica[rozmiar];
-        
+            
             for (int i = 0; i < rozmiar; i++) {
                 cin >> tablica[i];
             }
-        
             sortowanieKoktajlowe(tablica, rozmiar);
 
             break;
