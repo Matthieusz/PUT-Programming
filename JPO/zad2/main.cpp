@@ -217,6 +217,7 @@ void zad5() {
         void calculateRollingFriction(float f, float N) {
             float R = rim.getDiameter() / 2;
             rolling_friction = f * N / R;
+            cout << rolling_friction << endl;
         }
 
         private:
@@ -225,6 +226,18 @@ void zad5() {
             float total_mass;
             float rolling_friction;
         };
+        Rim rim1(10, 20, 30);
+        Tire tire1(5, 20, 30);
+        cout << "Rim1 weight: " << rim1.getWeight() << endl;
+        cout << "Tire1 weight: " << tire1.getWeight() << endl;
+        cout << "Rim1 width: " << rim1.getWidth() << endl;
+        cout << "Tire1 width: " << tire1.getWidth() << endl;
+        cout << "Rim1 diameter: " << rim1.getDiameter() << endl;
+        cout << "Tire1 diameter: " << tire1.getDiameter() << endl;
+        Wheel wheel1;
+        wheel1.put_on_Rim(rim1);
+        wheel1.mount_Tire(tire1);
+        wheel1.calculateRollingFriction(5, 10);
 }
 int main()
 {
