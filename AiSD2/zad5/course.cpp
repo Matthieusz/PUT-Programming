@@ -51,7 +51,7 @@ void Course::displayBestStudents(int year) { //do poprawy
         if (studentList[year - 1][i] != nullptr) {
             cout << studentList[year - 1][i]->getIndexNumber() << " "
                  << studentList[year - 1][i]->getName() << " "
-                 << studentList[year - 1][i]->getSurname() << endl;
+                 << studentList[year - 1][i]->getSurname() << " ";
         }
     }
 }
