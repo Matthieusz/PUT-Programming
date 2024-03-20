@@ -229,7 +229,7 @@ void zad2() {
 }
 
 void zad4() {
-    class no_real_solution : public std::runtime_error {
+    class no_real_solution : public runtime_error {
     public:
         no_real_solution(const string& message) : runtime_error(message) {}
     };
@@ -251,12 +251,12 @@ void zad4() {
 				x2 = (-b + sqrt(delta)) / (2 * a);
 			}
 			else if (delta == 0) {
-				x1 = -b / (2 * a);
+				x1 = x2 = -b / (2 * a);
                 cout << "Istnieje jedno miejsce zerowe: " << x1 << "\n";
 			}
 			else {
 				x1 = x2 = 0;
-				throw no_real_solution("No real solution");
+				throw no_real_solution("Brak rozwiązania");
 			}
 		}
 
@@ -282,8 +282,8 @@ void zad4() {
 	};
 
     try {
-        BinomialSolver b1(1.0, -5.0, 4.0);
-        cout << "Roots of the equation x*x - 5x + 4 = 0 are: " << endl;
+        cout << "Roots of the equation x*x + 5x + 3 = 0 are: " << endl;
+        BinomialSolver b1(1.0, 5.0, 3.0);
         cout << "x1 = " << b1.getX1() << ", x2 = " << b1.getX2() << endl;
     }
     catch(const exception& e) {
@@ -291,8 +291,8 @@ void zad4() {
     }
     
     try {
-        BinomialSolver b2(1.0, 2.0, 1.0);
         cout << "Roots of the equation x*x + 2x + 1 = 0 are: " << endl;
+        BinomialSolver b2(1.0, 2.0, 1.0);
         cout << "x1 = " << b2.getX1() << ", x2 = " << b2.getX2() << endl;
     }
     catch(const exception& e) {
@@ -303,14 +303,6 @@ void zad4() {
         BinomialSolver b3(6.0, 3.0, 9.0);
         cout << "Roots of the equation 6x*x + 3x + 9 = 0 are: " << endl;
         cout << "x1 = " << b3.getX1() << ", x2 = " << b3.getX2() << endl;
-    } catch (const no_real_solution& e) {
-        cout << e.what() << '\n';
-    }
-
-    try {
-        BinomialSolver b4(3.0, 2.0, 10.0);
-        cout << "Roots of the equation 6x*x + 3x + 9 = 0 are: " << endl;
-        cout << "x1 = " << b4.getX1() << ", x2 = " << b4.getX2() << endl;
     } catch (const no_real_solution& e) {
         cout << e.what() << '\n';
     }
@@ -389,15 +381,20 @@ void zad6() {
     };
     Matrices mtrx1(3, 3);
     mtrx1.fill_Matrix();
+    cout << "Macierz mtrx1" << endl;
     mtrx1.print_Matrix();
-    mtrx1.transpose_Matrix().print_Matrix();
-    mtrx1.multiply_Matrix(2);
-    mtrx1.print_Matrix();
-    Matrices mtrx2 = mtrx1;
-    Matrices mtrx3 = move(mtrx1);
-    mtrx1.print_Matrix(); //pusta po przeniesieniu
+
+    Matrices mtrx2(mtrx1);
+    cout << "Macierz mtrx2 (skopiowana z mtrx1)" << endl;
     mtrx2.print_Matrix();
+
+    Matrices mtrx3(move(mtrx1));
+    cout << "Macierz mtrx3 (przeniesiona z mtrx1) " << endl;
     mtrx3.print_Matrix();
+
+    cout << "Macierz mtrx1" << endl;
+    mtrx1.print_Matrix(); //pusta po przeniesieniu
+    cout << "Pusta" << endl;
 }
     
 
