@@ -123,7 +123,6 @@ void zad1() {
     } catch (const std::domain_error& e) {
         cout << "Error: " << e.what() << endl;
     }
-    cin.ignore(2);
 }
 
 void zad7() {
@@ -152,7 +151,6 @@ void zad7() {
     cout << endl;
     cout << "A * B:" << endl << A * B << endl;
     cout << "A * 2:" << endl << (A *= 2) << endl;
-    cin.ignore(2);
 }
 
 int main() {
