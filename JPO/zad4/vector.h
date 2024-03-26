@@ -4,7 +4,13 @@ private:
     size_t dimensions;
     T* data;
 public:
-    Vector(size_t size) : dimensions(size), data(new T[size]) {}
+    Vector(size_t size) {
+        if (size == 0) {
+            throw std::domain_error("Size of the vector cannot be zero.");
+        }
+        dimensions = size;
+        data = new T[size];
+    }
 
     Vector(const Vector<T>& other) : dimensions(other.dimensions), data(new T[other.dimensions]) {
         copy(other.data, other.data + other.dimensions, data);
@@ -30,13 +36,22 @@ public:
     size_t size() const {
         return dimensions;
     }
-    T& operator[](size_t index) { // a
+    T& operator[](size_t index) {
+        if (index >= dimensions) {
+            throw std::out_of_range("Index out of range.");
+        }
         return data[index];
     }
-    const T& operator[](size_t index) const { // a
+    const T& operator[](size_t index) const {
+        if (index >= dimensions) {
+            throw std::out_of_range("Index out of range.");
+        }
         return data[index];
     }
-    Vector<T> operator+(const Vector<T>& b) { // b
+    Vector<T> operator+(const Vector<T>& b) {
+        if (this->size() != b.size()) {
+            throw std::out_of_range("Vectors must have the same dimensions.");
+        }
         Vector<T> c(this->size());
         for (size_t i = 0; i < this->size(); i++) {
             c[i] = (*this)[i] + b[i];
@@ -44,6 +59,9 @@ public:
         return c;
     }
     Vector<T> operator-(const Vector<T>& b) { // c
+        if (this->size() != b.size()) {
+            throw std::out_of_range("Vectors must have the same dimensions.");
+        }
         Vector<T> c(this->size());
         for (size_t i = 0; i < this->size(); i++) {
             c[i] = (*this)[i] - b[i];

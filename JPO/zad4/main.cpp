@@ -1,47 +1,71 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <limits>
 #include "vector.h"
 using namespace std;
 
 void zad1() {
-typedef int T;
-    const size_t d = 10;
-    Vector<T> v1(d);
-    for (size_t i = 0; i < d; i++) {
-        v1[i] = (T)i;
+    typedef int T;
+    srand(time(nullptr));
+    int n;
+    cout << "Podaj rozmiar wektora V1: ";
+    try {
+        cin >> n;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            throw invalid_argument("Invalid input. Please enter a number.");
+        }
+        Vector<int> v1(n);
+        for (size_t i = 0; i < n; i++){
+            v1[i] = rand() % 100;
+        }
+        cout << "V1: " << v1 << endl << endl;
+        cout << "Ktory element V1 chcesz wyswietlic? (od 0 do " << (n - 1) << "): ";
+        cin >> n;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            throw invalid_argument("Invalid input. Please enter a number.");
+        }
+        cout << n << "-ty element V1 to: " << v1[n] << endl << endl;
+        cout << "Podaj rozmiar wektora V2: ";
+        cin >> n;
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            throw invalid_argument("Invalid input. Please enter a number.");
+        }
+        Vector<int> v2(n);
+        for (size_t i = 0; i < n; i++) {
+            v2[i] = rand() % 100;
+        }
+        cout << "V2: " << v2 << endl << endl;
+        cout << "V1 + V2: " << (v1 + v2) << endl;
+        cout << "V1 - V2: " << (v1 - v2) << endl;
+    } catch (const std::out_of_range& e) {
+        cout << "Error: " << e.what() << endl;
+    } catch (const std::domain_error& e) {
+        cout << "Error: " << e.what() << endl;
     }
-    cout << "Wektor v1: " << v1 << endl;
-    Vector<T> v2 = v1 + v1;
-    cout << "Wektor v2: " << v2 << endl;
-    cout << "v1 == v1: " << (v1 == v1 ? "TAK" : "NIE") << endl;
-    cout << "v1 != v1: " << (v1 != v1 ? "TAK" : "NIE") << endl;
-    cout << "v1 == v2: " << (v1 == v2 ? "TAK" : "NIE") << endl;
-    cout << "v1 != v2: " << (v1 != v2 ? "TAK" : "NIE") << endl;
-    Vector<T> v3(5);
-    cout << "Wektor v3: " << v3 << endl;
-    cout << "v1 == v3: " << (v1 == v3 ? "TAK" : "NIE") << endl;
-    v3 = v1;
-    cout << "Wektor v3: " << v3 << endl;
-    cout << "v1 == v3: " << (v1 == v3 ? "TAK" : "NIE") << endl; 
+    cin.ignore(2);
 }
 
 int main() {
     do {
         int task;
-        cout << "Wybierz zadanie [1,3,4]: ";
+        cout << "Wybierz zadanie [1,7]: ";
         cin >> task;
         switch (task)
         {
         case 1:
-            cout << "Zadanie 1/2" << endl;
+            cout << "Zadanie 1(1/2/3)" << endl;
             zad1();
             break;
-        case 4:
-            cout << "Zadanie 3" << endl;
-            //zad3();
-            break;
-        case 6:
-            cout << "Zadanie 4" << endl;
-            //zad4();
+        case 7:
+            cout << "Zadanie 7" << endl;
+            //zad7();
             break;
         default:
             cout << "Nie ma takiego zadania" << endl;
