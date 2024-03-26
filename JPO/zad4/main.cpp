@@ -1,4 +1,3 @@
-// Forward declaration of the operator<< function
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -18,19 +17,23 @@ public:
     }
 
     bool operator==(const Matrix& other) const {
-        if (data.size() != other.data.size() || data[0].size() != other.data[0].size()) {
-            return 0;
+        if (data.size() != other.data.size()) {
+            return false;
         }
 
         for (size_t i = 0; i < data.size(); i++) {
+            if (data[i].size() != other.data[i].size()) {
+                return false;
+            }
+        }
+        for (size_t i = 0; i < data.size(); i++) {
             for (size_t j = 0; j < data[0].size(); j++) {
                 if (data[i][j] != other.data[i][j]) {
-                    return 0;
+                    return false;
                 }
             }
         }
-
-        return 1;
+        return true;
     }
 
     Matrix operator*(const Matrix& other) const {
@@ -59,10 +62,10 @@ public:
         return *this;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+    friend ostream& operator<<(ostream& os, const Matrix& matrix);
 };
 
-std::ostream& operator<<(ostream& os, const Matrix& matrix) {
+ostream& operator<<(ostream& os, const Matrix& matrix) {
     int m = matrix.data.size();
     int n = matrix.data[0].size();
 
@@ -145,9 +148,10 @@ void zad7() {
     }
     cout << "A:" << endl << A << endl;
     cout << "B:" << endl << B << endl;
+    cout << "A == B: " << (A == B) << endl;
+    cout << endl;
     cout << "A * B:" << endl << A * B << endl;
     cout << "A * 2:" << endl << (A *= 2) << endl;
-    cout << "A == B: " << (A == B) << endl;
     cin.ignore(2);
 }
 
