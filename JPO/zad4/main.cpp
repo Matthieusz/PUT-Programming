@@ -36,10 +36,16 @@ public:
         return true;
     }
 
+    
+
     Matrix operator*(const Matrix& other) const {
         int m = data.size();
         int n = data[0].size();
         int p = other.data[0].size();
+
+        if (n != other.data.size()) {
+            throw std::invalid_argument("Dimensions do not match for matrix multiplication");
+        }
 
         Matrix result(m, p);
 
@@ -149,7 +155,12 @@ void zad7() {
     cout << "B:" << endl << B << endl;
     cout << "A == B: " << (A == B) << endl;
     cout << endl;
-    cout << "A * B:" << endl << A * B << endl;
+    try {
+        Matrix C = A * B;
+        cout << "A * B:" << endl << C << endl;
+    } catch (const std::invalid_argument& e) {
+        cout << "Error: " << e.what() << endl;
+    }
     cout << "A * 2:" << endl << (A *= 2) << endl;
 }
 
